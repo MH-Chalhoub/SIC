@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "874390723578",
+    "firebase_url": "https://sicdatabase.firebaseio.com",
+    "project_id": "sicdatabase",
+    "storage_bucket": "sicdatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874390723578:android:d949abceca50ca34",
+        "android_client_info": {
+          "package_name": "com.example.sic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874390723578-9mljnfc6gs6tic89ags3qf0jbhj9ep3i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sic",
+            "certificate_hash": "70137b84121106d1e7b8e6dcff40b2dc79da0637"
+          }
+        },
+        {
+          "client_id": "874390723578-6crdpi9jpmja01f1oqngdjl0qjaf83lm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB__ZFnLY87NONKJ8mYndTHa4XOjpclpPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874390723578-6crdpi9jpmja01f1oqngdjl0qjaf83lm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
