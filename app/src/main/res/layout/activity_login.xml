@@ -18,7 +18,7 @@
             android:layout_height="115dp"
             android:layout_gravity="center"
             android:src="@drawable/sic"
-            android:layout_marginTop="100sp"
+            android:layout_marginTop="50sp"
             android:contentDescription="TODO" />
         <TextView
             android:layout_width="match_parent"
