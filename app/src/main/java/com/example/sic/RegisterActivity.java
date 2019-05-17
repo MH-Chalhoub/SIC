@@ -43,13 +43,13 @@ public class RegisterActivity extends AppCompatActivity {
         userContactNoWrapper = findViewById(R.id.userContactNoWrapper);
 
         btnRegister = findViewById(R.id.btnRegister);
+        Toast.makeText(getApplicationContext(),FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAuth.getCurrentUser()!= null){
-
-                }else{
+                //if(mAuth.getCurrentUser()!= null){
+                //}else{
 
                     final String firstname = ufirstname.getText().toString().trim();
                     final String lastname = ulastname.getText().toString().trim();
@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     });
-                }
+               // }
             }
         });
 
