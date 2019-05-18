@@ -15,4 +15,6 @@
     <string name="confirm_password">Confirm password</string>
     <string name="contact_number">Contact number</string>
     <string name="btn_register">Register</string>
+    <string name="popular_products">Popular Products</string>
+    <string name="browse_category">Browser Category</string>
 </resources>
