@@ -3,6 +3,7 @@ package com.example.sic;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -21,11 +22,13 @@ import java.util.List;
 
 public class ShopActivity extends AppCompatActivity {
     ViewFlipper imgBanner;
-    private RecyclerView mRecycleView;
+    private RecyclerView mRecycleView, cRecycleView;
     private PopularAdapter mAdaptar;
+    private CategoryAdapter cAdaptar;
 
     private DatabaseReference mDatabaseRef;
     private List<Popular> mPopulars;
+    private List<Category> cCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +41,17 @@ public class ShopActivity extends AppCompatActivity {
         {
             bannerFlipper(slide);
         }
-
+        showCategories();
         showPopularProducts();
     }
     public void bannerFlipper (int image){
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(image);
         imgBanner.addView(imageView);
-        imgBanner.setFlipInterval(10000);
+        imgBanner.setFlipInterval(5000);
         imgBanner.setAutoStart(true);
-        imgBanner.setInAnimation(this, android.R.anim.fade_in);
-        imgBanner.setOutAnimation(this, android.R.anim.fade_out);
+        //imgBanner.setInAnimation(this, android.R.anim.fade_in);
+        //imgBanner.setOutAnimation(this, android.R.anim.fade_out);
     }
 
     public void showPopularProducts()
@@ -76,5 +79,34 @@ public class ShopActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+    public void showCategories()
+    {
+        cRecycleView = findViewById(R.id.category_view);
+        cRecycleView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        cRecycleView.setLayoutManager(mLayoutManager);
+
+        cCategory = new ArrayList<>();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Category");
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren())
+                {
+                    Category category = postSnapshot.getValue(Category.class);
+                    cCategory.add(category);
+                }
+                cAdaptar = new CategoryAdapter(ShopActivity.this, cCategory);
+                cRecycleView.setAdapter(cAdaptar);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }

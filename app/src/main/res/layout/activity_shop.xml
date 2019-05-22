@@ -30,11 +30,13 @@
                 >
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:text="@string/popular_products"
-                    android:textColor="@color/colorBlue"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorBlue"
                     android:textSize="24sp"
+                    android:padding="5dp"
                     />
             </LinearLayout>
             <LinearLayout
