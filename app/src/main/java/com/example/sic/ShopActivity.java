@@ -1,11 +1,14 @@
 package com.example.sic;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -32,7 +35,7 @@ public class ShopActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop);
+        setContentView(R.layout.activity_shop_main);
         imgBanner = findViewById(R.id.imgBanner);
         int sliders[] = {
                 R.drawable.general_banner, R.drawable.electronic_banner, R.drawable.selfcare_banner
@@ -43,6 +46,15 @@ public class ShopActivity extends AppCompatActivity {
         }
         showCategories();
         showPopularProducts();
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
     public void bannerFlipper (int image){
         ImageView imageView = new ImageView(this);
