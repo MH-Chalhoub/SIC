@@ -33,32 +33,26 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnUserLogin);
 
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser()!= null){
-            Intent intent = new Intent(LoginActivity.this, ShopActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        }
-        else{
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String email = userEmail.getText().toString().trim();
-                    String password = userPassword.getText().toString().trim();
 
-                    if(email.isEmpty()){
-                        userEmailWrapper.setError("Enter Email.");
-                        userEmailWrapper.requestFocus();
-                        return;
-                    }
-                    if(password.isEmpty()){
-                        userPasswordWrapper.setError("Enter Password.");
-                        userPasswordWrapper.requestFocus();
-                        return;
-                    }
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = userEmail.getText().toString().trim();
+                String password = userPassword.getText().toString().trim();
+
+                if(email.isEmpty()){
+                    userEmailWrapper.setError("Enter Email.");
+                    userEmailWrapper.requestFocus();
+                    return;
+                }
+                if(password.isEmpty()){
+                    userPasswordWrapper.setError("Enter Password.");
+                    userPasswordWrapper.requestFocus();
+                    return;
+                }
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 btnLogin.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -66,19 +60,16 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent intent = new Intent(LoginActivity.this, ShopActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
-                                        finish();
                                     }
                                 });
                             }
                             else{
                                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
-                        }
-                    });
+                    }
+                });
 
-                }
-            });
-        }
-
+            }
+        });
     }
 }
