@@ -35,7 +35,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageVie
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Popular popularCur = mPopulars.get(i);
         imageViewHolder.prod_name.setText(popularCur.getProduct_title());
-        imageViewHolder.prod_price.setText(popularCur.getProduct_price());
+        imageViewHolder.prod_price.setText(popularCur.getProduct_price() + "$");
         Picasso.with(mContext)
                 .load(popularCur.getProduct_image())
                 .placeholder(R.drawable.img_placeholder)

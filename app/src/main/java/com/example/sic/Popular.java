@@ -1,12 +1,13 @@
 package com.example.sic;
 
 public class Popular {
-    private String product_image, product_price, product_title;
+    private String product_image, product_title;
+    private int product_price;
 
     public Popular() {
     }
 
-    public Popular(String product_image, String product_price, String product_title) {
+    public Popular(String product_image, int product_price, String product_title) {
         this.product_image = product_image;
         this.product_price = product_price;
         this.product_title = product_title;
@@ -20,11 +21,11 @@ public class Popular {
         this.product_image = product_image;
     }
 
-    public String getProduct_price() {
+    public int getProduct_price() {
         return product_price;
     }
 
-    public void setProduct_price(String product_price) {
+    public void setProduct_price(int product_price) {
         this.product_price = product_price;
     }
 
@@ -36,3 +37,4 @@ public class Popular {
         this.product_title = product_title;
     }
 }
+
