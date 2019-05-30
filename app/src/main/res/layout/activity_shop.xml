@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ShopActivity"
+    tools:showIn="@layout/activity_shop_main">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-    <ViewFlipper
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/imgBanner"
-        >
+        <ViewFlipper
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/imgBanner"
+            >
 
-    </ViewFlipper>
+        </ViewFlipper>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
