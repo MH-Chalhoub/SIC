@@ -107,13 +107,33 @@ public class ShopActivity extends AppCompatActivity
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        mAdaptar = new PopularAdapter(ShopActivity.this, mPopulars);
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Popular popular = document.toObject(Popular.class);
+                                popular.setProduct_id(document.getId());
                                 mPopulars.add(popular);
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
-                            mAdaptar = new PopularAdapter(ShopActivity.this, mPopulars);
+                            mAdaptar.setOnItemClickListener(new PopularAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    //mPopulars.get(position).changeTitle("Clicked");
+                                    if(mPopulars.get(position).getProduct_favorite() == 0){
+                                        mPopulars.get(position).changeFavorite(1);
+                                        db.collection("popular")
+                                                .document(mPopulars.get(position).getProduct_id())
+                                                .update("product_favorite", 1);
+                                    }
+                                    else {
+                                        mPopulars.get(position).changeFavorite(0);
+                                        db.collection("popular")
+                                                .document(mPopulars.get(position).getProduct_id())
+                                                .update("product_favorite", 0);
+                                    }
+                                    mAdaptar.notifyItemChanged(position);
+                                }
+                            });
                             mRecycleView.setAdapter(mAdaptar);
                         } else {
                             Toast.makeText(getApplicationContext(), "Error getting documents." + task.getException(), Toast.LENGTH_LONG).show();

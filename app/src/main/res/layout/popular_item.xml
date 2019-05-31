@@ -55,6 +55,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
                     android:src="@drawable/btn_favourite"
+                    android:id="@+id/prodFavorite"
                     android:tint="@color/colorBlue" />
                 <TextView
                     android:layout_width="0dp"
