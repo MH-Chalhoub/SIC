@@ -1,5 +1,6 @@
 package com.example.sic;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -28,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -46,6 +50,9 @@ public class ShopActivity extends AppCompatActivity
     private FirebaseFirestore db;
     private List<Popular> mPopulars;
     private List<Category> cCategory;
+    private TextView textView_name, textView_email;
+
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +60,11 @@ public class ShopActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
         imgBanner = findViewById(R.id.imgBanner);
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         int sliders[] = {
                 R.drawable.general_banner, R.drawable.electronic_banner, R.drawable.selfcare_banner
         };
@@ -82,6 +92,35 @@ public class ShopActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        textView_name = (TextView) headerView.findViewById(R.id.header_name);
+        textView_email = (TextView) headerView.findViewById(R.id.header_email);
+
+        DocumentReference docRef = db.collection("Users").document(mAuth.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        User user = document.toObject(User.class);
+                        String firstname = user.getFirstname().toUpperCase();
+                        String lastname = user.getLastname().toUpperCase();
+                        char s1 = firstname.charAt(0);
+
+                        textView_name.setText(s1 + user.getFirstname().substring(1) + " " + lastname);
+                        textView_email.setText(user.getEmail());
+
+                    } else {
+                        //Log.d(TAG, "No such document");
+                    }
+                } else {
+                    //Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
     public void bannerFlipper (int image){
         ImageView imageView = new ImageView(this);
@@ -192,6 +231,10 @@ public class ShopActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_logout){
+            mAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
