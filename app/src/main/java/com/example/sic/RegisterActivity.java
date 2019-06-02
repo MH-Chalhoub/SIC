@@ -1,5 +1,6 @@
 package com.example.sic;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText ufirstname, ulastname, uemail, upassword, uconfpassword, ucontactno;
     Button btnRegister;
     TextInputLayout userFirstNameWrapper, userLastNameWrapper, userEmailWrapper, userPasswordWrapperm,
             userConfPasswordWrapper, userContactNoWrapper;
+    private FirebaseFirestore db;
 
     private FirebaseAuth mAuth;
     @Override
@@ -42,14 +45,20 @@ public class RegisterActivity extends AppCompatActivity {
         userConfPasswordWrapper = findViewById(R.id.userConfPasswordWrapper);
         userContactNoWrapper = findViewById(R.id.userContactNoWrapper);
 
+        db = FirebaseFirestore.getInstance();
+
         btnRegister = findViewById(R.id.btnRegister);
-        Toast.makeText(getApplicationContext(),FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(mAuth.getCurrentUser()!= null){
-                //}else{
+                if(mAuth.getCurrentUser()!= null){
+                    Intent intent = new Intent(RegisterActivity.this, ShopActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }else{
 
                     final String firstname = ufirstname.getText().toString().trim();
                     final String lastname = ulastname.getText().toString().trim();
@@ -97,6 +106,24 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 User user = new User(firstname, lastname , email, contactno);
+                                db.collection("Users")
+                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(RegisterActivity.this, "User created successfuly.", Toast.LENGTH_LONG).show();
+
+                                            Intent intent = new Intent(RegisterActivity.this, ShopActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            finish();
+                                        }else {
+                                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                                /*User user = new User(firstname, lastname , email, contactno);
                                 FirebaseDatabase .getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -108,14 +135,14 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                         }
                                     }
-                                });
+                                });*/
                             }
                             else {
                                 Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-               // }
+               }
             }
         });
 
