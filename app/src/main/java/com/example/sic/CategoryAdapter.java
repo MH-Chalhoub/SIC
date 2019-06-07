@@ -36,7 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Category categoryCur = mCategories.get(i);
         imageViewHolder.cattitle.setText(categoryCur.getCatname());
-        imageViewHolder.cattitle.setBackgroundColor(Color.parseColor(categoryCur.getCattitlebg()));
+        //imageViewHolder.cattitle.setBackgroundColor(Color.parseColor(categoryCur.getCattitlebg()));
         imageViewHolder.iconWrapper.setBackgroundColor(Color.parseColor(categoryCur.getCatbg()));
         Picasso.with(pContext)
                 .load(categoryCur.getCaticon())

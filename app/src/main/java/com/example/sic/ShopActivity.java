@@ -79,7 +79,7 @@ public class ShopActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "ADD Item Images", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(ShopActivity.this, UploadActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -189,7 +189,7 @@ public class ShopActivity extends AppCompatActivity
         cRecycleView = findViewById(R.id.category_view);
         cRecycleView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         cRecycleView.setLayoutManager(mLayoutManager);
 
         cCategory = new ArrayList<>();

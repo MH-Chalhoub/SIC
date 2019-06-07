@@ -39,8 +39,8 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String fileName = fileNameList.get(position);
-        holder.fileNameView.setText(fileName);
+        //String fileName = fileNameList.get(position);
+        //holder.fileNameView.setText(fileName);
 
         int nh = (int) ( fileImageList.get(position).getHeight() * (512.0 / fileImageList.get(position).getWidth()) );
         Bitmap scaled = Bitmap.createScaledBitmap(fileImageList.get(position), 512, nh, true);
@@ -68,7 +68,7 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
 
         View mView;
 
-        public TextView fileNameView;
+        //public TextView fileNameView;
         public ImageView fileDoneView, fileImageView;
 
         public ViewHolder(View itemView) {
@@ -76,7 +76,7 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
 
             mView = itemView;
 
-            fileNameView = (TextView) mView.findViewById(R.id.upload_filename);
+            //fileNameView = (TextView) mView.findViewById(R.id.upload_filename);
             fileDoneView = (ImageView) mView.findViewById(R.id.upload_loading);
             fileImageView = (ImageView) mView.findViewById(R.id.upload_icon);
 

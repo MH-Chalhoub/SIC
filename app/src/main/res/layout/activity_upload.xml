@@ -1,44 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UploadActivity">
 
-
-    <TextView
-        android:id="@+id/main_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/nunito_semibold"
-        android:text="Multiple File Upload"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/select_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/main_heading"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Select Files to Upload"
-        android:background="@drawable/gradientbackground"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/upload_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/select_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/select_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:text="Select 3 Pictures"
+            android:background="@drawable/gradientbackground"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"/>
 
-</RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/upload_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/select_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/upload_list"
+            android:id="@+id/enterTitleWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterTitle"
+                android:inputType="text"
+                android:hint="@string/enter_item_title"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/enterTitleWrapper"
+            android:id="@+id/enterCategoryWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterCategory"
+                android:inputType="text"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:hint="@string/enter_item_category"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/enterCategoryWrapper"
+            android:id="@+id/enterDescriptionWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterDescription"
+                android:inputType="textMultiLine"
+                android:hint="@string/enter_item_description"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/enterDescriptionWrapper"
+            android:id="@+id/enterLocationWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterLocation"
+                android:inputType="text"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:hint="@string/enter_item_location"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/enterLocationWrapper"
+            android:id="@+id/enterNameWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterName"
+                android:inputType="text"
+                android:hint="@string/enter_seller_name"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/enterNameWrapper"
+            android:id="@+id/enterEmailWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterEmail"
+                android:inputType="text"
+                android:hint="@string/enter_seller_email"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/enterEmailWrapper"
+            android:id="@+id/enterPhoneWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterPhone"
+                android:inputType="text"
+                android:hint="@string/enter_seller_phone"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/enterPhoneWrapper"
+            android:id="@+id/btnSubmit"
+            android:text="@string/btn_submit"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:background="@drawable/gradientbackground"
+            android:layout_marginTop="10sp"
+            />
+    </RelativeLayout>
+
+
+
+</android.support.v4.widget.NestedScrollView>
