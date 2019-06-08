@@ -18,7 +18,12 @@
     <string name="btn_submit">Submit</string>
     <string name="popular_products">Popular Products</string>
     <string name="browse_category">Browser Category</string>
+    <string name="browse_items">Browser Items</string>
     <string name="category_name">Category Name</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_price">Item Price $</string>
+    <string name="item_posted_time">Item Posted Time</string>
+    <string name="item_location">Item Location</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -32,5 +37,6 @@
     <string name="enter_seller_name">Name</string>
     <string name="enter_seller_email">Email</string>
     <string name="enter_seller_phone">Phone</string>
+    <string name="enter_price">Price</string>
 
 </resources>

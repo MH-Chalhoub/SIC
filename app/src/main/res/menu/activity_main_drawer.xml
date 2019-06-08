@@ -13,11 +13,11 @@
             android:icon="@drawable/ic_account_circle"
             android:title="Account" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_ads"
             android:icon="@drawable/ic_add_circle"
             android:title="My Ads" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_fav"
             android:icon="@drawable/btn_favorite_black"
             android:title="Favorite" />
     </group>

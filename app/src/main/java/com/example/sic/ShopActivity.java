@@ -227,9 +227,10 @@ public class ShopActivity extends AppCompatActivity
         } else if (id == R.id.nav_account) {
             Intent intent = new Intent(ShopActivity.this, ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_ads) {
+            Intent intent = new Intent(ShopActivity.this, ItemsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_fav) {
 
         } else if (id == R.id.nav_share) {
 

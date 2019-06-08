@@ -2,15 +2,17 @@ package com.example.sic;
 
 public class User {
     String firstname, lastname, email, contactno;
+    int itemsCount;
 
     public User() {
     }
 
-    public User(String firstname, String lastname, String email, String contactno) {
+    public User(String firstname, String lastname, String email, String contactno, int itemsCount) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.contactno = contactno;
+        this.itemsCount = itemsCount;
     }
 
     public String getFirstname() {
@@ -43,5 +45,13 @@ public class User {
 
     public void setContactno(String contactno) {
         this.contactno = contactno;
+    }
+
+    public int getItemsCount() {
+        return itemsCount;
+    }
+
+    public void setItemsCount(int itemsCount) {
+        this.itemsCount = itemsCount;
     }
 }

@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/enterName"
-                android:inputType="text"
+                android:inputType="textPersonName"
                 android:hint="@string/enter_seller_name"
                 android:drawableLeft="@mipmap/progress"
                 android:drawableStart="@mipmap/progress"
@@ -143,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/enterEmail"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:hint="@string/enter_seller_email"
                 android:drawableLeft="@mipmap/progress"
                 android:drawableStart="@mipmap/progress"
@@ -162,8 +162,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/enterPhone"
-                android:inputType="text"
+                android:inputType="phone"
                 android:hint="@string/enter_seller_phone"
+                android:drawableLeft="@mipmap/progress"
+                android:drawableStart="@mipmap/progress"
+                android:drawablePadding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlue"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/enterPhoneWrapper"
+            android:id="@+id/enterPriceWrapper">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/enterPrice"
+                android:inputType="numberDecimal"
+                android:hint="@string/enter_price"
                 android:drawableLeft="@mipmap/progress"
                 android:drawableStart="@mipmap/progress"
                 android:drawablePadding="10dp"
@@ -175,7 +194,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/enterPhoneWrapper"
+            android:layout_below="@+id/enterPriceWrapper"
             android:id="@+id/btnSubmit"
             android:text="@string/btn_submit"
             android:layout_alignParentBottom="true"

@@ -178,7 +178,8 @@ android:orientation="vertical">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Item number"/>
+            android:text="Item number"
+            android:id="@+id/profile_items"/>/>
     </LinearLayout>
 </LinearLayout>
 

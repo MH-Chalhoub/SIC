@@ -1,6 +1,7 @@
 package com.example.sic;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Item {
     private ArrayList<String> images;
@@ -11,11 +12,13 @@ public class Item {
     String name;
     String email;
     String phone;
+    Float price;
+    Date posted_time;
 
     public Item() {
     }
 
-    public Item(ArrayList<String> images, String title, String category, String description, String location, String name, String email, String phone) {
+    public Item(ArrayList<String> images, String title, String category, String description, String location, String name, String email, String phone, Float price, Date posted_time) {
         this.images = images;
         this.title = title;
         this.category = category;
@@ -24,6 +27,8 @@ public class Item {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.price = price;
+        this.posted_time = posted_time;
     }
 
     public ArrayList<String> getImages() {
@@ -88,5 +93,21 @@ public class Item {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public Date getPosted_time() {
+        return posted_time;
+    }
+
+    public void setPosted_time(Date posted_time) {
+        this.posted_time = posted_time;
     }
 }

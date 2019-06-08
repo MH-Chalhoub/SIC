@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,9 +44,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Date;
 
 public class UploadActivity extends AppCompatActivity {
 
@@ -66,9 +70,9 @@ public class UploadActivity extends AppCompatActivity {
 
     private UploadListAdapter uploadListAdapter;
     TextInputLayout enterTitleWrapper, enterCategoryWrapper, enterDescriptionWrapper, enterLocationWrapper, enterNameWrapper
-            , enterEmailWrapper, enterPhoneWrapper;
+            , enterEmailWrapper, enterPhoneWrapper, enterPriceWrapper;
     EditText enterTitle, enterCategory, enterDescription, enterLocation, enterName
-            , enterEmail, enterPhone;
+            , enterEmail, enterPhone, enterPrice;
 
     private StorageReference mStorage;
     private FirebaseFirestore db;
@@ -96,6 +100,7 @@ public class UploadActivity extends AppCompatActivity {
         enterName = findViewById(R.id.enterName);
         enterEmail = findViewById(R.id.enterEmail);
         enterPhone = findViewById(R.id.enterPhone);
+        enterPrice = findViewById(R.id.enterPrice);
 
         enterTitleWrapper = findViewById(R.id.enterTitleWrapper);
         enterCategoryWrapper = findViewById(R.id.enterCategoryWrapper);
@@ -104,6 +109,7 @@ public class UploadActivity extends AppCompatActivity {
         enterNameWrapper = findViewById(R.id.enterNameWrapper);
         enterEmailWrapper = findViewById(R.id.enterEmailWrapper);
         enterPhoneWrapper = findViewById(R.id.enterPhoneWrapper);
+        enterPriceWrapper = findViewById(R.id.enterPriceWrapper);
 
         mSelectBtn = (Button) findViewById(R.id.select_btn);
         submitBtn = (Button) findViewById(R.id.btnSubmit);
@@ -137,6 +143,7 @@ public class UploadActivity extends AppCompatActivity {
                 final String name = enterName.getText().toString().trim();
                 final String email = enterEmail.getText().toString().trim();
                 final String phone = enterPhone.getText().toString().trim();
+                final Float price = Float.parseFloat(enterPrice.getText().toString().trim());
 
                 if(title.isEmpty() || title.length()<5){
                     enterTitleWrapper.setError("Enter Title And Title length must be grater than 5");
@@ -194,7 +201,16 @@ public class UploadActivity extends AppCompatActivity {
                 else{
                     enterPhoneWrapper.setErrorEnabled(false);
                 }
-                Item item = new Item(images,title, category, description, location, name, email, phone);
+                if(phone.isEmpty()){
+                    enterPriceWrapper.setError("Enter Item Price");
+                    enterPriceWrapper.requestFocus();
+                    return;
+                }
+                else{
+                    enterPriceWrapper.setErrorEnabled(false);
+                }
+                Date date = new Date();
+                Item item = new Item(images,title, category, description, location, name, email, phone, price,date);
                 db.collection("Items")
                         .add(item)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -209,6 +225,25 @@ public class UploadActivity extends AppCompatActivity {
                                 Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
+                db.collection("Users")
+                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .collection("User_Items")
+                        .add(item)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(UploadActivity.this, "Item added successfuly to User_Items.", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                DocumentReference UserItemsRef = db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                UserItemsRef.update("itemsCount", FieldValue.increment(1));
+
                 finish();
             }
         });

@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private TextView textView_name, textView_email, textView_phone;
+    private TextView textView_name, textView_email, textView_phone, textView_items;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
         textView_name = (TextView) findViewById(R.id.profile_name);
         textView_email = (TextView) findViewById(R.id.profile_email);
         textView_phone = (TextView) findViewById(R.id.profile_phone);
+        textView_items = (TextView) findViewById(R.id.profile_items);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -44,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
                         textView_name.setText(s1 + user.getFirstname().substring(1) + " " + lastname);
                         textView_email.setText(user.getEmail());
                         textView_phone.setText(user.getContactno());
+                        textView_items.setText(user.getItemsCount() + "");
 
                     } else {
                         //Log.d(TAG, "No such document");

@@ -8,6 +8,8 @@
         android:layout_height="match_parent"
         android:id="@+id/card_view"
         android:layout_gravity="center"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:layout_margin="5dp"
         android:elevation="3dp"
         app:cardCornerRadius="2dp"
@@ -43,8 +45,6 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:scaleType="fitXY"
                 android:layout_marginLeft="5dp"
