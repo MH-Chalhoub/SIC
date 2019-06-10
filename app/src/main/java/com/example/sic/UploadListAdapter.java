@@ -53,10 +53,8 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
             holder.fileDoneView.setImageResource(R.mipmap.progress);
 
         } else {
-
             holder.fileDoneView.setImageResource(R.mipmap.checked);
         }
-
     }
 
     @Override
