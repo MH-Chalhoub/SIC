@@ -166,9 +166,10 @@ public class ShopActivity extends AppCompatActivity
                                 mPopulars.add(popular);
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
-                            mAdaptar.setOnItemClickListener(new PopularAdapter.OnItemClickListener() {
+                            mAdaptar.setOnItemClickListener(new OnItemClickListener() {
                                 @Override
                                 public void onItemClick(int position) {
+                                    //Toast.makeText(ShopActivity.this, "Popular : " + position, Toast.LENGTH_SHORT).show();
                                     //mPopulars.get(position).changeTitle("Clicked");
                                     if(mPopulars.get(position).getProduct_favorite() == 0){
                                         mPopulars.get(position).changeFavorite(1);
@@ -215,6 +216,17 @@ public class ShopActivity extends AppCompatActivity
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
                             cAdaptar = new CategoryAdapter(ShopActivity.this, cCategory);
+                            cAdaptar.setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    //Toast.makeText(ShopActivity.this, "Category " + position + " : " + cCategory.get(position).getCatname(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ShopActivity.this, ItemsActivity.class);
+                                    intent.putExtra("category", cCategory.get(position).getCatname());
+                                    intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            });
                             cRecycleView.setAdapter(cAdaptar);
                         } else {
                             Toast.makeText(getApplicationContext(), "Error getting documents." + task.getException(), Toast.LENGTH_LONG).show();
@@ -238,6 +250,7 @@ public class ShopActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_ads) {
             Intent intent = new Intent(ShopActivity.this, ItemsActivity.class);
+            intent.putExtra("FROM_WHERE", "ShopActivity/nav_ads");
             startActivity(intent);
         } else if (id == R.id.nav_fav) {
 
@@ -271,7 +284,8 @@ public class ShopActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
-
+        //To enable full text search of your Cloud Firestore data, use a third-party search service like Algolia
+        //https://www.algolia.com/
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -321,6 +335,12 @@ public class ShopActivity extends AppCompatActivity
 
             searchView.setQuery(query, false);
             searchView.clearFocus();
+
+            Intent intent1 = new Intent(ShopActivity.this, ItemsActivity.class);
+            intent1.putExtra("searchText", query);
+            intent1.putExtra("FROM_WHERE", "ShopActivity/searchBar");
+            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent1);
         }
     }
 }

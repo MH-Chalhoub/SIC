@@ -19,17 +19,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
 
     private Context pContext;
     private List<Category> mCategories;
+    private OnItemClickListener mListener;
 
     public CategoryAdapter(Context pContext, List<Category> mCategories) {
         this.pContext = pContext;
         this.mCategories = mCategories;
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(pContext).inflate(R.layout.category_item, viewGroup, false);
-        return new ImageViewHolder(v);
+        return new ImageViewHolder(v, mListener);
     }
 
     @Override
@@ -55,11 +60,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
         public TextView cattitle;
         public ImageView imgicon;
         public LinearLayout iconWrapper;
-        public ImageViewHolder(@NonNull View itemView) {
+        public ImageViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             cattitle = itemView.findViewById(R.id.catName);
             imgicon = itemView.findViewById(R.id.catIcon);
             iconWrapper = itemView.findViewById(R.id.iconWrapper);
+            iconWrapper.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //prod_favorite.setImageResource(R.drawable.btn_favorite_black);
+                    if(listener != null){
+                        int postion = getAdapterPosition();
+                        if(postion != RecyclerView.NO_POSITION){
+                            listener.onItemClick(postion);
+                        }
+                    }
+                }
+            });
         }
     }
 }

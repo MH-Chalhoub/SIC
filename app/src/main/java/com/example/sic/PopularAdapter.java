@@ -26,10 +26,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageVie
         mPopulars = populars;
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(int position);
-    }
-
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
