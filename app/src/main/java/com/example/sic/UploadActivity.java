@@ -62,6 +62,7 @@ public class UploadActivity extends AppCompatActivity {
     private List<Bitmap> fileImageList;
 
     private int i = 0;
+    private Item item;
     int totalItemsSelected_1, itemInlist = 0;
 
     Place place;
@@ -210,31 +211,31 @@ public class UploadActivity extends AppCompatActivity {
                     enterPriceWrapper.setErrorEnabled(false);
                 }
                 Date date = new Date();
-                Item item = new Item(images,title, category, description, location, name, email, phone, price,date);
+                item = new Item(images,title, category, description, location, name, email, phone, price,date);
                 db.collection("Items")
                         .add(item)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(UploadActivity.this, "Item added successfuly.", Toast.LENGTH_LONG).show();
+                        db.collection("Users")
+                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .collection("User_Items")
+                                .document(documentReference.getId())
+                                .set(item)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(UploadActivity.this, "Item added successfuly to User_Items.", Toast.LENGTH_LONG).show();
+                                        }else {
+                                            Toast.makeText(UploadActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                    }
+                                });
                     }
                 })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                db.collection("Users")
-                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .collection("User_Items")
-                        .add(item)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(UploadActivity.this, "Item added successfuly to User_Items.", Toast.LENGTH_LONG).show();
-                            }
-                        })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {

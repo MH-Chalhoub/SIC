@@ -1,9 +1,12 @@
 package com.example.sic;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Item {
+public class Item implements Parcelable {
     private ArrayList<String> images;
     String title;
     String category;
@@ -18,17 +21,20 @@ public class Item {
     public Item() {
     }
 
-    public Item(ArrayList<String> images, String title, String category, String description, String location, String name, String email, String phone, Float price, Date posted_time) {
-        this.images = images;
-        this.title = title;
-        this.category = category;
-        this.description = description;
-        this.location = location;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.price = price;
-        this.posted_time = posted_time;
+    public Item(Parcel in) {
+
+        ArrayList<String> imagesPictureUrls = new ArrayList<>();
+        in.readStringList(imagesPictureUrls);
+        images = imagesPictureUrls;
+        this.title = in.readString();
+        this.category = in.readString();
+        this.description = in.readString();
+        this.location = in.readString();
+        this.name = in.readString();
+        this.email = in.readString();
+        this.phone = in.readString();
+        this.price = in.readFloat();
+        this.posted_time = (Date) in.readSerializable();
     }
 
     public ArrayList<String> getImages() {
@@ -110,4 +116,48 @@ public class Item {
     public void setPosted_time(Date posted_time) {
         this.posted_time = posted_time;
     }
+
+    //I am using Parcelable to send the object (Item) using Intent.putExtra
+
+    public Item(ArrayList<String> images, String title, String category, String description, String location, String name, String email, String phone, Float price, Date posted_time) {
+        this.images = images;
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.location = location;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.price = price;
+        this.posted_time = posted_time;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringList(images);
+        dest.writeString(title);
+        dest.writeString(category);
+        dest.writeString(description);
+        dest.writeString(location);
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeFloat(price);
+        dest.writeSerializable(posted_time);
+    }
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
+
 }

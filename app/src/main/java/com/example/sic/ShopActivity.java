@@ -185,6 +185,11 @@ public class ShopActivity extends AppCompatActivity
                                     }
                                     mAdaptar.notifyItemChanged(position);
                                 }
+
+                                @Override
+                                public void onItemLongClick(int position) {
+
+                                }
                             });
                             mRecycleView.setAdapter(mAdaptar);
                         } else {
@@ -225,6 +230,11 @@ public class ShopActivity extends AppCompatActivity
                                     intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
+                                }
+
+                                @Override
+                                public void onItemLongClick(int position) {
+                                    Toast.makeText(ShopActivity.this, "onItemLongClick", Toast.LENGTH_SHORT).show();
                                 }
                             });
                             cRecycleView.setAdapter(cAdaptar);

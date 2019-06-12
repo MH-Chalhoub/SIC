@@ -11,15 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ItemsActivity"></activity>
+        <activity
+            android:name=".ItemsContentActivity"
+            android:label="@string/title_activity_items_content"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ItemsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".ShopActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />

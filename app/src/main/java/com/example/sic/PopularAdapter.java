@@ -29,6 +29,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageVie
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
+    public void setOnItemLongClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     @NonNull
     @Override

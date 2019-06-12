@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ItemsContentActivity"
+    tools:showIn="@layout/activity_items_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/graylight"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical|start"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Price"
+                android:textColor="@color/darkgray"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical|start"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="10dp"
+                android:text="Value $"
+                android:textAlignment="textEnd"
+                android:textColor="@color/blackgray"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/graylight"
+            android:layout_margin="5dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical|start"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Name"
+                android:textColor="@color/darkgray"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical|start"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="10dp"
+                android:text="User Name"
+                android:textAlignment="textEnd"
+                android:textColor="@color/blackgray"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/graylight"
+            android:layout_margin="5dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical|start"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Posted Time"
+                android:textColor="@color/darkgray"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/postedTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical|start"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="yyyy MMMM dd"
+                android:textAlignment="textEnd"
+                android:gravity="end"
+                android:textColor="@color/blackgray"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/graylight"
+            android:layout_margin="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/map"
+            android:layout_marginTop="10dp">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/card_view"
+                android:layout_gravity="center"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_margin="15dp"
+                android:elevation="3dp"
+                app:cardCornerRadius="2dp"
+                >
+                <LinearLayout
+                    android:id="@+id/locationWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical|start"
+                        android:layout_weight="10"
+                        android:padding="15dp"
+                        android:text="Location"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/darkgray"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical|start"
+                        android:layout_weight="10"
+                        android:gravity="end"
+                        android:padding="5dp"
+                        android:text="Where"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/blackgray"
+                        android:textSize="14sp" />
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:scaleType="fitXY"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_location"
+                        />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/itemDescription"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

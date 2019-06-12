@@ -9,7 +9,12 @@
     <color name="bgStart">#f3f3f3</color>
     <color name="bgEnd">#dbdbdb</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
     <color name="graylight">#72EEEEEE</color>
     <color name="transparentgray">#1AA5A5A5</color>
+    <color name="darkgray">#757575</color>
+    <color name="transparentblack">#1E000000</color>
+    <color name="blackgray">#333333</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

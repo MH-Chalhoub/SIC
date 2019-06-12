@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ItemsContentActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/graylight"
+                tools:context=".ScrollingActivity">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="30dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/transparentblack"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="1"
+                        android:background="@color/transparent"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_items_content"
+        android:id="@+id/content"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:backgroundTint="@color/bgEnd"
+        app:srcCompat="@drawable/btn_favourite" />
+
+    <LinearLayout
+        android:id="@+id/twoButtonWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_anchor="@id/content"
+        android:weightSum="2"
+        app:layout_anchorGravity="bottom">
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:background="@drawable/gradientalpha"
+            android:textColor="#00FFA6"
+            android:text="Chat Now" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            app:layout_anchor="@id/twoButtonWrapper"
+            app:layout_anchorGravity="top"
+            android:background="#000000"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/gradientalpha"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_report_black_24dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Report"
+            android:textColor="#FF0000" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_anchor="@id/twoButtonWrapper"
+        app:layout_anchorGravity="top"
+        android:background="#000000"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

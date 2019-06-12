@@ -1,11 +1,21 @@
 package com.example.sic;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -27,6 +37,7 @@ public class ItemsActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private List<Item> items;
     private String category,fromWhere,searchText;
+    private View titleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +85,23 @@ public class ItemsActivity extends AppCompatActivity {
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
                             iAdaptar = new ItemsAdapter(ItemsActivity.this, items);
+                            iAdaptar.setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    //Toast.makeText(ShopActivity.this, "Category " + position + " : " + cCategory.get(position).getCatname(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
+                                    intent.putExtra("item", (Parcelable) items.get(position));
+                                    //intent.putExtra("category", items.get(position).getCatname());
+                                    //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onItemLongClick(int position) {
+                                    showAlertDialog();
+                                }
+                            });
                             iRecycleView.setAdapter(iAdaptar);
                         } else {
                             Toast.makeText(getApplicationContext(), "Error getting documents." + task.getException(), Toast.LENGTH_LONG).show();
@@ -106,6 +134,23 @@ public class ItemsActivity extends AppCompatActivity {
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
                             iAdaptar = new ItemsAdapter(ItemsActivity.this, items);
+                            iAdaptar.setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    //Toast.makeText(ShopActivity.this, "Category " + position + " : " + cCategory.get(position).getCatname(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
+                                    intent.putExtra("item", (Parcelable) items.get(position));
+                                    //intent.putExtra("category", items.get(position).getCatname());
+                                    //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onItemLongClick(int position) {
+                                    showAlertDialog();
+                                }
+                            });
                             iRecycleView.setAdapter(iAdaptar);
                         } else {
                             Toast.makeText(getApplicationContext(), "Error getting documents." + task.getException(), Toast.LENGTH_LONG).show();
@@ -139,6 +184,22 @@ public class ItemsActivity extends AppCompatActivity {
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
                             iAdaptar = new ItemsAdapter(ItemsActivity.this, items);
+                            iAdaptar.setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    //Toast.makeText(ShopActivity.this, "Category " + position + " : " + cCategory.get(position).getCatname(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
+                                    intent.putExtra("item", (Parcelable) items.get(position));
+                                    //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onItemLongClick(int position) {
+                                    showAlertDialog();
+                                }
+                            });
                             iRecycleView.setAdapter(iAdaptar);
                         } else {
                             Toast.makeText(getApplicationContext(), "Error getting documents." + task.getException(), Toast.LENGTH_LONG).show();
@@ -146,6 +207,40 @@ public class ItemsActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+    }
+
+    public void showAlertDialog(){
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        titleView = inflater.inflate(R.layout.custom_title, null);
+        LinearLayout linearLayout = (LinearLayout) titleView.findViewById(R.id.llsubhead);
+        TextView txt = (TextView) titleView.findViewById(R.id.exemptionSubHeading4);
+        txt.setText("Do You Want To Delete This item");
+        linearLayout.setBackgroundColor(Color.parseColor("#7EFF0000"));
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(ItemsActivity.this);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder1.setCustomTitle(titleView);
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
 
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -25,10 +26,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ImageViewHol
     {
         mContext = context;
         mItems = Items;
-    }
-
-    public interface OnItemClickListener{
-        void onItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -76,6 +73,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ImageViewHol
     public static class ImageViewHolder extends RecyclerView.ViewHolder{
         public ImageView prod_img;
         public TextView prod_name, prod_price, prod_posted_time, prod_location;
+        public LinearLayout iconWrapperitem;
         public ImageViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             prod_img = itemView.findViewById(R.id.ItemImage);
@@ -83,6 +81,32 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ImageViewHol
             prod_price = itemView.findViewById(R.id.itemPrice);
             prod_posted_time = itemView.findViewById(R.id.itemPostedTime);
             prod_location = itemView.findViewById(R.id.itemLocation);
+            iconWrapperitem = itemView.findViewById(R.id.iconWrapperitem);
+
+            iconWrapperitem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //prod_favorite.setImageResource(R.drawable.btn_favorite_black);
+                    if(listener != null){
+                        int postion = getAdapterPosition();
+                        if(postion != RecyclerView.NO_POSITION){
+                            listener.onItemClick(postion);
+                        }
+                    }
+                }
+            });
+            iconWrapperitem.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(listener != null) {
+                        int postion = getAdapterPosition();
+                        if (postion != RecyclerView.NO_POSITION) {
+                            listener.onItemLongClick(postion);
+                        }
+                    }
+                    return false;
+                }
+            });
         }
 
     }

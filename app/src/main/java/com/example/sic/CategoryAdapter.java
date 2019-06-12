@@ -77,6 +77,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
                     }
                 }
             });
+            iconWrapper.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(listener != null) {
+                        int postion = getAdapterPosition();
+                        if (postion != RecyclerView.NO_POSITION) {
+                            listener.onItemLongClick(postion);
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
 }
