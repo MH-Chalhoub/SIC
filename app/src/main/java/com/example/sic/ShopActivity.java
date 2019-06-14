@@ -253,9 +253,7 @@ public class ShopActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_account) {
+        if (id == R.id.nav_account) {
             Intent intent = new Intent(ShopActivity.this, ProfileActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_ads) {
@@ -263,10 +261,10 @@ public class ShopActivity extends AppCompatActivity
             intent.putExtra("FROM_WHERE", "ShopActivity/nav_ads");
             startActivity(intent);
         } else if (id == R.id.nav_fav) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            Intent intent = new Intent(ShopActivity.this, ItemsActivity.class);
+            intent.putExtra("FROM_WHERE", "ShopActivity/nav_fav");
+            startActivity(intent);
+        } else if (id == R.id.nav_language) {
 
         } else if (id == R.id.nav_logout){
             mAuth.getInstance().signOut();

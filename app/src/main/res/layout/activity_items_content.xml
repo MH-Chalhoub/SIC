@@ -77,10 +77,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@color/bgEnd"
-        app:srcCompat="@drawable/btn_favourite" />
+        app:layout_anchor="@id/content"
+        app:layout_anchorGravity="top|end"
+        app:backgroundTint="@color/bgEnd" />
 
     <LinearLayout
         android:id="@+id/twoButtonWrapper"
@@ -96,6 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/sendMessage"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:background="@drawable/gradientalpha"
@@ -113,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/report"
             android:background="@drawable/gradientalpha"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_report_black_24dp"

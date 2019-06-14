@@ -47,7 +47,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Date;
 
@@ -232,6 +234,23 @@ public class UploadActivity extends AppCompatActivity {
                                         }else {
                                             Toast.makeText(UploadActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                             }
+                                    }
+                                });
+
+                        Map<String, Object> reportCount = new HashMap<>();
+                        reportCount.put("reportCount", 0);
+
+                        db.collection("Items Reported")
+                                .document(documentReference.getId())
+                                .set(reportCount)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+
+                                        }else {
+
+                                        }
                                     }
                                 });
                     }

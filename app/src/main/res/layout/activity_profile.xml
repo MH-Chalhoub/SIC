@@ -8,18 +8,19 @@ android:background="@color/graylight"
 android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="370dp">
+    android:layout_height="330dp">
     <LinearLayout
         android:background="@drawable/gradientbackground"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="285dp"
         android:orientation="vertical">
         <ImageView
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ic_account_circle"/>
+            android:src="@mipmap/ic_launcher_round"
+            />
         <TextView
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
@@ -32,11 +33,12 @@ android:orientation="vertical">
             android:id="@+id/profile_name"/>
     </LinearLayout>
     <android.support.v7.widget.CardView
-        android:layout_width="350dp"
+        android:layout_width="340dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="240dp"
-        app:cardCornerRadius="50dp">
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="40dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -61,9 +63,20 @@ android:orientation="vertical">
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
-                    android:textColor="@color/colorLigthBlue"/>
+                    android:textColor="@color/colorPrimary"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginLeft="1dp"
+                app:layout_anchor="@id/twoButtonWrapper"
+                app:layout_anchorGravity="top"
+                android:background="@color/transparentblack"
+                />
             <LinearLayout
                 android:gravity="center"
                 android:orientation="vertical"
@@ -73,7 +86,7 @@ android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Followers"
+                    android:text="Favorite"
                     android:textSize="20sp"
                     />
                 <TextView
@@ -83,9 +96,20 @@ android:orientation="vertical">
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
-                    android:textColor="@color/colorLigthBlue"/>
+                    android:textColor="@color/colorPrimary"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginLeft="1dp"
+                app:layout_anchor="@id/twoButtonWrapper"
+                app:layout_anchorGravity="top"
+                android:background="@color/transparentblack"
+                />
             <LinearLayout
                 android:gravity="center"
                 android:orientation="vertical"
@@ -95,7 +119,7 @@ android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Following"
+                    android:text="Rank"
                     android:textSize="20sp"
                     />
                 <TextView
@@ -105,7 +129,7 @@ android:orientation="vertical">
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
-                    android:textColor="@color/colorLigthBlue"/>
+                    android:textColor="@color/colorPrimary"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -118,7 +142,7 @@ android:orientation="vertical">
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="30dp">
     <LinearLayout
         android:orientation="horizontal"
         android:paddingLeft="50dp"
@@ -128,16 +152,34 @@ android:orientation="vertical">
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_email_black_24dp"
-            android:tint="@color/colorLigthBlue"/>
+            android:tint="@color/colorPrimary"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            app:layout_anchor="@id/twoButtonWrapper"
+            app:layout_anchorGravity="top"
+            android:background="@color/transparentblack"
+            />
         <TextView
             android:textStyle="bold"
             android:id="@+id/profile_email"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:text="Wiliam@gmail.com"/>
+            android:paddingLeft="20dp"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        app:layout_anchor="@id/twoButtonWrapper"
+        app:layout_anchorGravity="top"
+        android:background="@color/transparentblack"
+        />
     <LinearLayout
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
@@ -148,7 +190,18 @@ android:orientation="vertical">
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_phone_android_black_24dp"
-            android:tint="@color/colorLigthBlue"/>
+            android:tint="@color/colorPrimary"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            app:layout_anchor="@id/twoButtonWrapper"
+            app:layout_anchorGravity="top"
+            android:background="@color/transparentblack"
+            />
         <TextView
             android:textStyle="bold"
 
@@ -156,9 +209,16 @@ android:orientation="vertical">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="+266 225 225"
             android:id="@+id/profile_phone"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        app:layout_anchor="@id/twoButtonWrapper"
+        app:layout_anchorGravity="top"
+        android:background="@color/transparentblack"
+        />
 
     <LinearLayout
         android:layout_marginTop="25dp"
@@ -170,7 +230,18 @@ android:orientation="vertical">
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_items"
-            android:tint="@color/colorLigthBlue"/>
+            android:tint="@color/colorPrimary"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            app:layout_anchor="@id/twoButtonWrapper"
+            app:layout_anchorGravity="top"
+            android:background="@color/transparentblack"
+            />
         <TextView
             android:textStyle="bold"
 
@@ -178,9 +249,16 @@ android:orientation="vertical">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Item number"
             android:id="@+id/profile_items"/>/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        app:layout_anchor="@id/twoButtonWrapper"
+        app:layout_anchorGravity="top"
+        android:background="@color/transparentblack"
+        />
 </LinearLayout>
 
 </LinearLayout>
