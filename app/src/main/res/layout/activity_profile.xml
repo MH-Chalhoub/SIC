@@ -53,13 +53,13 @@ android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Photos"
+                    android:text="Items"
                     android:textSize="20sp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="125"
+                    android:id="@+id/profile_items"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
@@ -92,7 +92,7 @@ android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1205"
+                    android:id="@+id/profile_favorite"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
@@ -220,45 +220,6 @@ android:orientation="vertical">
         android:background="@color/transparentblack"
         />
 
-    <LinearLayout
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        android:paddingLeft="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_items"
-            android:tint="@color/colorPrimary"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="10dp"
-            app:layout_anchor="@id/twoButtonWrapper"
-            app:layout_anchorGravity="top"
-            android:background="@color/transparentblack"
-            />
-        <TextView
-            android:textStyle="bold"
-
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:id="@+id/profile_items"/>/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="5dp"
-        app:layout_anchor="@id/twoButtonWrapper"
-        app:layout_anchorGravity="top"
-        android:background="@color/transparentblack"
-        />
 </LinearLayout>
 
 </LinearLayout>

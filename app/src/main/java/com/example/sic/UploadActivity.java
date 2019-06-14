@@ -213,7 +213,7 @@ public class UploadActivity extends AppCompatActivity {
                     enterPriceWrapper.setErrorEnabled(false);
                 }
                 Date date = new Date();
-                item = new Item(images,title, category, description, location, name, email, phone, price,date);
+                item = new Item(images,title, category, description, location, name, email, phone, price,date,0, FirebaseAuth.getInstance().getCurrentUser().getUid());
                 db.collection("Items")
                         .add(item)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

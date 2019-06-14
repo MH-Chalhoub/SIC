@@ -17,6 +17,8 @@ public class Item implements Parcelable {
     String phone;
     Float price;
     Date posted_time;
+    int views;
+    String userId;
 
     public Item() {
     }
@@ -35,6 +37,8 @@ public class Item implements Parcelable {
         this.phone = in.readString();
         this.price = in.readFloat();
         this.posted_time = (Date) in.readSerializable();
+        this.views = in.readInt();
+        this.userId = in.readString();
     }
 
     public ArrayList<String> getImages() {
@@ -117,9 +121,24 @@ public class Item implements Parcelable {
         this.posted_time = posted_time;
     }
 
-    //I am using Parcelable to send the object (Item) using Intent.putExtra
+    public int getViews() {
+        return views;
+    }
 
-    public Item(ArrayList<String> images, String title, String category, String description, String location, String name, String email, String phone, Float price, Date posted_time) {
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+//I am using Parcelable to send the object (Item) using Intent.putExtra
+
+    public Item(ArrayList<String> images, String title, String category, String description, String location, String name, String email, String phone, Float price, Date posted_time, int views, String userId) {
         this.images = images;
         this.title = title;
         this.category = category;
@@ -130,6 +149,8 @@ public class Item implements Parcelable {
         this.phone = phone;
         this.price = price;
         this.posted_time = posted_time;
+        this.views = views;
+        this.userId = userId;
     }
 
     @Override
@@ -149,6 +170,8 @@ public class Item implements Parcelable {
         dest.writeString(phone);
         dest.writeFloat(price);
         dest.writeSerializable(posted_time);
+        dest.writeInt(views);
+        dest.writeString(userId);
     }
     public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
         public Item createFromParcel(Parcel in) {

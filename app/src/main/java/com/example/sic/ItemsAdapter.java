@@ -50,7 +50,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ImageViewHol
         System.out.println(date);
 
         imageViewHolder.prod_name.setText(itemCur.getTitle());
-        imageViewHolder.prod_price.setText(itemCur.getPrice() + "$");
+        imageViewHolder.prod_price.setText(itemCur.getPrice() == 0 ? "Free" : itemCur.getPrice()+"$");
         imageViewHolder.prod_posted_time.setText(date);
         imageViewHolder.prod_location.setText(itemCur.getLocation());
         try {

@@ -50,11 +50,6 @@ public class ItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         db = FirebaseFirestore.getInstance();
         category = getIntent().getExtras().getString("category",null);
@@ -70,10 +65,15 @@ public class ItemsActivity extends AppCompatActivity {
         else if(fromWhere.equals("ShopActivity/nav_ads")){
             showItemsFromMyads();
         }
-        else if(fromWhere.equals("ShopActivity/nav_fav")){
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(fromWhere.equals("ShopActivity/nav_fav")){
             showItemsFromFavorite();
         }
-
     }
 
     public void showItemsFromCategory()
@@ -108,6 +108,19 @@ public class ItemsActivity extends AppCompatActivity {
                                     Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
                                     intent.putExtra("item", (Parcelable) items.get(position));
                                     intent.putExtra("itemId", itemsId.get(position));
+                                    db.collection("Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Favorite_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
                                     //intent.putExtra("category", items.get(position).getCatname());
                                     //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -160,6 +173,19 @@ public class ItemsActivity extends AppCompatActivity {
                                     Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
                                     intent.putExtra("item", (Parcelable) items.get(position));
                                     intent.putExtra("itemId", itemsId.get(position));
+                                    db.collection("Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Favorite_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
                                     //intent.putExtra("category", items.get(position).getCatname());
                                     //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -213,6 +239,19 @@ public class ItemsActivity extends AppCompatActivity {
                                     Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
                                     intent.putExtra("item", (Parcelable) items.get(position));
                                     intent.putExtra("itemId", itemsId.get(position));
+                                    db.collection("Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Favorite_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
                                     //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
@@ -265,6 +304,19 @@ public class ItemsActivity extends AppCompatActivity {
                                     Intent intent = new Intent(ItemsActivity.this, ItemsContentActivity.class);
                                     intent.putExtra("item", (Parcelable) items.get(position));
                                     intent.putExtra("itemId", itemsId.get(position));
+                                    db.collection("Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Favorite_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(items.get(position).getUserId())
+                                            .collection("User_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
                                     //intent.putExtra("category", items.get(position).getCatname());
                                     //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

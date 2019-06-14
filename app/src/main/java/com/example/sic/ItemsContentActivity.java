@@ -40,7 +40,7 @@ public class ItemsContentActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
-    TextView item_description, item_location, item_price, user_name, posted_time;
+    TextView item_description, item_location, item_price, user_name, posted_time, itemIdAndViews;
     LinearLayout user_location;
     Item item;
     String itemId;
@@ -49,6 +49,7 @@ public class ItemsContentActivity extends AppCompatActivity {
     private Button report, sendMessage;
     private String[] reportReason = {"Inappropriate Photos","Inappropriate Text Description","Very High Price"};
     private View titleView;
+    int views;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class ItemsContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_items_content);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         db = FirebaseFirestore.getInstance();
 
@@ -153,12 +156,34 @@ public class ItemsContentActivity extends AppCompatActivity {
         user_name = findViewById(R.id.userName);
         posted_time = findViewById(R.id.postedTime);
         user_location = findViewById(R.id.locationWrapper);
+        itemIdAndViews = findViewById(R.id.itemIdAndViews);
 
         //Toast.makeText(ItemsContentActivity.this, item.getLocation(), Toast.LENGTH_SHORT).show();
         item_description.setText(item.getDescription());
         item_location.setText(item.getLocation());
-        item_price.setText(item.getPrice() + "$");
+        item_price.setText(item.getPrice() == 0 ? "Free" : item.getPrice()+"$");
         user_name.setText(item.getName());
+
+        DocumentReference ItemsRef = db.collection("Items").document(itemId);
+        ItemsRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null) {
+                        Item item = document.toObject(Item.class);
+                        views = item.getViews();
+                        itemIdAndViews.setText("ID : " + itemId + "      Views : " + views);
+                        Log.d("LOGGER", "getViews : " + views);
+                    } else {
+                        Log.d("LOGGER", "No such document");
+                    }
+                } else {
+                    Log.d("LOGGER", "get failed with ", task.getException());
+                }
+            }
+        });
+
 
         String pattern = "yyyy MMMM dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -200,6 +225,13 @@ public class ItemsContentActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(item.getTitle());
         getSupportActionBar().setSubtitle("subtitle");
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void initializeFabButton(){
         fab = (FloatingActionButton) findViewById(R.id.fab);
         DocumentReference docIdRef = db.collection("Users")
