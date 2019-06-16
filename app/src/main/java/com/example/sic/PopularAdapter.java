@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,10 +18,10 @@ import java.util.List;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageViewHolder> {
     private Context mContext;
-    private List<Popular> mPopulars;
+    private List<Item> mPopulars;
     private OnItemClickListener mListener;
 
-    public PopularAdapter(Context context, List<Popular> populars)
+    public PopularAdapter(Context context, List<Item> populars)
     {
         mContext = context;
         mPopulars = populars;
@@ -42,21 +43,16 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageVie
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
-        Popular popularCur = mPopulars.get(i);
-        imageViewHolder.prod_name.setText(popularCur.getProduct_title());
-        imageViewHolder.prod_price.setText(popularCur.getProduct_price() + "$");
+        Item popularCur = mPopulars.get(i);
+        imageViewHolder.prod_name.setText(popularCur.getTitle());
+        imageViewHolder.prod_price.setText(popularCur.getPrice() == 0 ? "Free" : popularCur.getPrice()+"$");
+        imageViewHolder.prodViewsPopular.setText(popularCur.getViews() + " View");
         Picasso.with(mContext)
-                .load(popularCur.getProduct_image())
+                .load(popularCur.getImages().get(0))
                 .placeholder(R.drawable.img_placeholder)
                 .fit()
                 .centerCrop()
                 .into(imageViewHolder.prod_img);
-        if(popularCur.getProduct_favorite() == 0){
-            imageViewHolder.prod_favorite.setImageResource(R.drawable.btn_favourite);
-        }
-        else {
-            imageViewHolder.prod_favorite.setImageResource(R.drawable.btn_favorite_black);
-        }
     }
 
     @Override
@@ -65,16 +61,17 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageVie
     }
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder{
-        public TextView prod_name, prod_price;
+        public TextView prod_name, prod_price, prodViewsPopular;
         public ImageView prod_img;
-        public ImageButton prod_favorite;
+        public LinearLayout popularItemWrapper;
         public ImageViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             prod_name = itemView.findViewById(R.id.prodName);
             prod_price = itemView.findViewById(R.id.prodPrice);
+            prodViewsPopular = itemView.findViewById(R.id.prodViewsPopular);
             prod_img = itemView.findViewById(R.id.prodImage);
-            prod_favorite = itemView.findViewById(R.id.prodFavorite);
-            prod_favorite.setOnClickListener(new View.OnClickListener() {
+            popularItemWrapper = itemView.findViewById(R.id.popularItemWrapper);
+            popularItemWrapper.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //prod_favorite.setImageResource(R.drawable.btn_favorite_black);

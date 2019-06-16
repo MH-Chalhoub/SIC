@@ -3,6 +3,7 @@ package com.example.sic;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -37,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -53,7 +55,8 @@ public class ShopActivity extends AppCompatActivity
     private CategoryAdapter cAdaptar;
 
     private FirebaseFirestore db;
-    private List<Popular> mPopulars;
+    private List<String> itemsId;
+    private List<Item> mPopulars;
     private List<Category> cCategory;
     private TextView textView_name, textView_email;
 
@@ -80,7 +83,6 @@ public class ShopActivity extends AppCompatActivity
             bannerFlipper(slide);
         }
         showCategories();
-        showPopularProducts();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +136,14 @@ public class ShopActivity extends AppCompatActivity
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showPopularProducts();
+
+    }
+
     public void bannerFlipper (int image){
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(image);
@@ -143,7 +153,6 @@ public class ShopActivity extends AppCompatActivity
         //imgBanner.setInAnimation(this, android.R.anim.fade_in);
         //imgBanner.setOutAnimation(this, android.R.anim.fade_out);
     }
-
     public void showPopularProducts()
     {
         mRecycleView = findViewById(R.id.recycler_view);
@@ -151,9 +160,11 @@ public class ShopActivity extends AppCompatActivity
         mRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         mPopulars = new ArrayList<>();
+        itemsId = new ArrayList<>();
 
-        db.collection("popular")
-                .orderBy("product_price", Query.Direction.ASCENDING)
+        db.collection("Items")
+                .orderBy("views", Query.Direction.DESCENDING)
+                .limit(10)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -161,29 +172,35 @@ public class ShopActivity extends AppCompatActivity
                         mAdaptar = new PopularAdapter(ShopActivity.this, mPopulars);
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Popular popular = document.toObject(Popular.class);
-                                popular.setProduct_id(document.getId());
+                                Item popular = document.toObject(Item.class);
+                                itemsId.add(document.getId());
+                                //popular.setProduct_id(document.getId());
                                 mPopulars.add(popular);
                                 Log.d("att", document.getId() + " => " + document.getData());
                             }
                             mAdaptar.setOnItemClickListener(new OnItemClickListener() {
                                 @Override
                                 public void onItemClick(int position) {
-                                    //Toast.makeText(ShopActivity.this, "Popular : " + position, Toast.LENGTH_SHORT).show();
-                                    //mPopulars.get(position).changeTitle("Clicked");
-                                    if(mPopulars.get(position).getProduct_favorite() == 0){
-                                        mPopulars.get(position).changeFavorite(1);
-                                        db.collection("popular")
-                                                .document(mPopulars.get(position).getProduct_id())
-                                                .update("product_favorite", 1);
-                                    }
-                                    else {
-                                        mPopulars.get(position).changeFavorite(0);
-                                        db.collection("popular")
-                                                .document(mPopulars.get(position).getProduct_id())
-                                                .update("product_favorite", 0);
-                                    }
-                                    mAdaptar.notifyItemChanged(position);
+                                    Intent intent = new Intent(ShopActivity.this, ItemsContentActivity.class);
+                                    intent.putExtra("item", (Parcelable) mPopulars.get(position));
+                                    intent.putExtra("itemId", itemsId.get(position));
+                                    db.collection("Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(mPopulars.get(position).getUserId())
+                                            .collection("User_Favorite_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    db.collection("Users")
+                                            .document(mPopulars.get(position).getUserId())
+                                            .collection("User_Items")
+                                            .document(itemsId.get(position))
+                                            .update("views", FieldValue.increment(1));
+                                    //intent.putExtra("category", items.get(position).getCatname());
+                                    //intent.putExtra("FROM_WHERE", "ShopActivity/categoryChooser");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
                                 }
 
                                 @Override
@@ -286,6 +303,7 @@ public class ShopActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

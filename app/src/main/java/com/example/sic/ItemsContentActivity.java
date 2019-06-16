@@ -223,7 +223,6 @@ public class ItemsContentActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         getSupportActionBar().setTitle(item.getTitle());
-        getSupportActionBar().setSubtitle("subtitle");
     }
 
     @Override

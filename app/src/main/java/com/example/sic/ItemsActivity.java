@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -49,7 +50,12 @@ public class ItemsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_items);
+        setContentView(R.layout.activity_items_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         db = FirebaseFirestore.getInstance();
         category = getIntent().getExtras().getString("category",null);
@@ -76,10 +82,18 @@ public class ItemsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void showItemsFromCategory()
     {
         iRecycleView = findViewById(R.id.items_view);
         iRecycleView.setHasFixedSize(true);
+
+        getSupportActionBar().setTitle(category);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         iRecycleView.setLayoutManager(mLayoutManager);
@@ -146,6 +160,8 @@ public class ItemsActivity extends AppCompatActivity {
         iRecycleView = findViewById(R.id.items_view);
         iRecycleView.setHasFixedSize(true);
 
+        getSupportActionBar().setTitle(searchText);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         iRecycleView.setLayoutManager(mLayoutManager);
 
@@ -210,6 +226,8 @@ public class ItemsActivity extends AppCompatActivity {
     {
         iRecycleView = findViewById(R.id.items_view);
         iRecycleView.setHasFixedSize(true);
+
+        getSupportActionBar().setTitle("My Ads");
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         iRecycleView.setLayoutManager(mLayoutManager);
