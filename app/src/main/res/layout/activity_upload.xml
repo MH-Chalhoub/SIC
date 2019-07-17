@@ -149,6 +149,7 @@
                 android:drawableStart="@mipmap/progress"
                 android:drawablePadding="10dp"
                 android:textSize="18sp"
+                android:enabled="false"
                 android:textColor="@color/colorBlue"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -163,6 +164,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/enterPhone"
                 android:inputType="phone"
+                android:digits="0123456789+"
                 android:hint="@string/enter_seller_phone"
                 android:drawableLeft="@mipmap/progress"
                 android:drawableStart="@mipmap/progress"

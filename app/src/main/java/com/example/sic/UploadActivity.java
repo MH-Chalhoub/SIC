@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -84,6 +85,9 @@ public class UploadActivity extends AppCompatActivity {
     private String[] category_names;
     private ArrayList<String> images;
 
+    private FirebaseAuth mAuth;
+
+    String wholeName,phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,33 @@ public class UploadActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
 
         fillAddItem();
+        mAuth = FirebaseAuth.getInstance();
+
+        DocumentReference docRef = db.collection("Users").document(mAuth.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        User user = document.toObject(User.class);
+                        String firstname = user.getFirstname().toUpperCase();
+                        String lastname = user.getLastname().toUpperCase();
+                        char s1 = firstname.charAt(0);
+                        wholeName = s1 + user.getFirstname().substring(1) + " " + lastname;
+                        phone = user.getContactno();
+                        enterName.setText(wholeName);
+                        enterPhone.setText(phone);
+
+                    } else {
+                        //Log.d(TAG, "No such document");
+                    }
+                } else {
+                    //Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
 
         enterTitle = findViewById(R.id.enterTitle);
         enterCategory = findViewById(R.id.enterCategory);
@@ -139,132 +170,147 @@ public class UploadActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String title = enterTitle.getText().toString().trim();
-                final String category = enterCategory.getText().toString().trim();
-                final String description = enterDescription.getText().toString().trim();
-                final String location = enterLocation.getText().toString().trim();
-                final String name = enterName.getText().toString().trim();
-                final String email = enterEmail.getText().toString().trim();
-                final String phone = enterPhone.getText().toString().trim();
-                final Float price = Float.parseFloat(enterPrice.getText().toString().trim());
+                if(fileNameList.size()!=0){
+                    if(doneUploading()){
+                        final String title = enterTitle.getText().toString().trim();
+                        final String category = enterCategory.getText().toString().trim();
+                        final String description = enterDescription.getText().toString().trim();
+                        final String location = enterLocation.getText().toString().trim();
+                        final String name = enterName.getText().toString().trim();
+                        final String email = enterEmail.getText().toString().trim();
+                        final String phone = enterPhone.getText().toString().trim();
+                        Float price = null;
+                        try {
+                            price = Float.parseFloat(enterPrice.getText().toString().trim());
+                        }catch (Exception e){
 
-                if(title.isEmpty() || title.length()<5){
-                    enterTitleWrapper.setError("Enter Title And Title length must be grater than 5");
-                    enterTitleWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterTitleWrapper.setErrorEnabled(false);
-                }
-                if(category.isEmpty()){
-                    enterCategoryWrapper.setError("Enter Category");
-                    enterCategoryWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterCategoryWrapper.setErrorEnabled(false);
-                }
-                if(description.isEmpty() && title.length()>5){
-                    enterDescriptionWrapper.setError("Enter Description");
-                    enterDescriptionWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterDescriptionWrapper.setErrorEnabled(false);
-                }
-                if(location.isEmpty()){
-                    enterLocationWrapper.setError("Enter Location");
-                    enterLocationWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterLocationWrapper.setErrorEnabled(false);
-                }
-                if(name.isEmpty() || title.length()<5){
-                    enterNameWrapper.setError("Enter Name And Name length must be grater than 5");
-                    enterNameWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterNameWrapper.setErrorEnabled(false);
-                }
-                if(email.isEmpty()){
-                    enterEmailWrapper.setError("Enter Email");
-                    enterEmailWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterEmailWrapper.setErrorEnabled(false);
-                }
-                if(phone.isEmpty()){
-                    enterPhoneWrapper.setError("Enter Phone Number");
-                    enterPhoneWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterPhoneWrapper.setErrorEnabled(false);
-                }
-                if(phone.isEmpty()){
-                    enterPriceWrapper.setError("Enter Item Price");
-                    enterPriceWrapper.requestFocus();
-                    return;
-                }
-                else{
-                    enterPriceWrapper.setErrorEnabled(false);
-                }
-                Date date = new Date();
-                item = new Item(images,title, category, description, location, name, email, phone, price,date,0, FirebaseAuth.getInstance().getCurrentUser().getUid());
-                db.collection("Items")
-                        .add(item)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(UploadActivity.this, "Item added successfuly.", Toast.LENGTH_LONG).show();
-                        db.collection("Users")
-                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .collection("User_Items")
-                                .document(documentReference.getId())
-                                .set(item)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        }
+
+                        if(title.isEmpty() || title.length()<5){
+                            enterTitleWrapper.setError("Enter Title And Title length must be grater than 5");
+                            enterTitleWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterTitleWrapper.setErrorEnabled(false);
+                        }
+                        if(category.isEmpty()){
+                            enterCategoryWrapper.setError("Enter Category");
+                            enterCategoryWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterCategoryWrapper.setErrorEnabled(false);
+                        }
+                        if(description.isEmpty() && title.length()>5){
+                            enterDescriptionWrapper.setError("Enter Description");
+                            enterDescriptionWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterDescriptionWrapper.setErrorEnabled(false);
+                        }
+                        if(location.isEmpty()){
+                            enterLocationWrapper.setError("Enter Location");
+                            enterLocationWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterLocationWrapper.setErrorEnabled(false);
+                        }
+                        if(name.isEmpty() || title.length()<5){
+                            enterNameWrapper.setError("Enter Name And Name length must be grater than 5");
+                            enterNameWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterNameWrapper.setErrorEnabled(false);
+                        }
+                        if(email.isEmpty()){
+                            enterEmailWrapper.setError("Enter Email");
+                            enterEmailWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterEmailWrapper.setErrorEnabled(false);
+                        }
+                        if(phone.isEmpty()){
+                            enterPhoneWrapper.setError("Enter Phone Number");
+                            enterPhoneWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterPhoneWrapper.setErrorEnabled(false);
+                        }
+                        if(price==null){
+                            enterPriceWrapper.setError("Enter Item Price and if it's free put 0");
+                            enterPriceWrapper.requestFocus();
+                            return;
+                        }
+                        else{
+                            enterPriceWrapper.setErrorEnabled(false);
+                        }
+                        Date date = new Date();
+                        item = new Item(images,title, category, description, location, name, email, phone, price,date,0, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        db.collection("Items")
+                                .add(item)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(UploadActivity.this, "Item added successfuly.", Toast.LENGTH_LONG).show();
+                                        db.collection("Users")
+                                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .collection("User_Items")
+                                                .document(documentReference.getId())
+                                                .set(item)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
 
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(UploadActivity.this, "Item added successfuly to User_Items.", Toast.LENGTH_LONG).show();
-                                        }else {
-                                            Toast.makeText(UploadActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                            }
+                                                        if(task.isSuccessful()){
+                                                            // Toast.makeText(UploadActivity.this, "Item added successfuly to User_Items.", Toast.LENGTH_LONG).show();
+                                                        }else {
+                                                            Toast.makeText(UploadActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }
+                                                });
+
+                                        Map<String, Object> reportCount = new HashMap<>();
+                                        reportCount.put("reportCount", 0);
+
+                                        db.collection("Items Reported")
+                                                .document(documentReference.getId())
+                                                .set(reportCount)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if(task.isSuccessful()){
+
+                                                        }else {
+
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 });
+                        DocumentReference UserItemsRef = db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        UserItemsRef.update("itemsCount", FieldValue.increment(1));
 
-                        Map<String, Object> reportCount = new HashMap<>();
-                        reportCount.put("reportCount", 0);
-
-                        db.collection("Items Reported")
-                                .document(documentReference.getId())
-                                .set(reportCount)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-
-                                        }else {
-
-                                        }
-                                    }
-                                });
+                        finish();
                     }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                DocumentReference UserItemsRef = db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                UserItemsRef.update("itemsCount", FieldValue.increment(1));
-
-                finish();
+                    else{
+                        Toast.makeText(UploadActivity.this, "Wait until Photos finish uploading", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    Toast.makeText(UploadActivity.this, "Select a Photo", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -553,7 +599,14 @@ public class UploadActivity extends AppCompatActivity {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
-
+    public boolean doneUploading(){
+        for(int i=0; i<fileDoneList.size(); i++){
+            if(fileDoneList.get(i).equals("uploading")){
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 

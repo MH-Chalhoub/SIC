@@ -129,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/userContactNumber"
                 android:inputType="phone"
+                android:digits="0123456789+"
                 android:hint="@string/contact_number"
                 android:textSize="18sp"
                 android:textColor="@color/colorBlue"/>

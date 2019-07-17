@@ -45,14 +45,22 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ImageVie
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Item popularCur = mPopulars.get(i);
         imageViewHolder.prod_name.setText(popularCur.getTitle());
-        imageViewHolder.prod_price.setText(popularCur.getPrice() == 0 ? "Free" : popularCur.getPrice()+"$");
+        try {
+            imageViewHolder.prod_price.setText(popularCur.getPrice() == 0 ? "Free" : popularCur.getPrice() + "$");
+        }catch (Exception e){
+
+        }
         imageViewHolder.prodViewsPopular.setText(popularCur.getViews() + " View");
-        Picasso.with(mContext)
-                .load(popularCur.getImages().get(0))
-                .placeholder(R.drawable.img_placeholder)
-                .fit()
-                .centerCrop()
-                .into(imageViewHolder.prod_img);
+        try {
+            Picasso.with(mContext)
+                    .load(popularCur.getImages().get(0))
+                    .placeholder(R.drawable.img_placeholder)
+                    .fit()
+                    .centerCrop()
+                    .into(imageViewHolder.prod_img);
+        }catch (Exception e){
+
+        }
     }
 
     @Override

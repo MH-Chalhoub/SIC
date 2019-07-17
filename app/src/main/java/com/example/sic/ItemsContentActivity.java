@@ -87,6 +87,7 @@ public class ItemsContentActivity extends AppCompatActivity {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //         .setAction("Action", null).show();
                 fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setEnabled(false);
                 DocumentReference docIdRef = db.collection("Users")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .collection("User_Favorite_Items")
@@ -106,6 +107,8 @@ public class ItemsContentActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("delete", "DocumentSnapshot successfully deleted!");
+                                                initializeFabButton();
+                                                fab.setEnabled(true);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -127,7 +130,8 @@ public class ItemsContentActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
 
                                                 if(task.isSuccessful()){
-
+                                                    initializeFabButton();
+                                                    fab.setEnabled(true);
                                                 }else {
 
                                                 }
@@ -136,7 +140,6 @@ public class ItemsContentActivity extends AppCompatActivity {
                                 DocumentReference UserItemsRef = db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 UserItemsRef.update("favoriteItemsCount", FieldValue.increment(1));
                             }
-                            initializeFabButton();
                         } else {
                             Log.d("Document", "Failed with: ", task.getException());
                         }

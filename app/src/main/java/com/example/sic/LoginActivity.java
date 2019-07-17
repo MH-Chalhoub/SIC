@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
     TextInputLayout userEmailWrapper, userPasswordWrapper;
     EditText userEmail, userPassword;
+    TextView registerQuestion;
     Button btnLogin;
     FirebaseAuth mAuth;
     @Override
@@ -29,6 +31,15 @@ public class LoginActivity extends AppCompatActivity {
 
         userEmail = findViewById(R.id.userEmail);
         userPassword = findViewById(R.id.userPassword);
+        registerQuestion = findViewById(R.id.userSignUp);
+        registerQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         btnLogin = findViewById(R.id.btnUserLogin);
 

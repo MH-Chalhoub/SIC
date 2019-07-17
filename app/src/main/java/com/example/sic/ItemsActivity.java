@@ -449,9 +449,6 @@ public class ItemsActivity extends AppCompatActivity {
                                                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                     @Override
                                                                                     public void onSuccess(Void aVoid) {
-                                                                                        items.remove(position);
-                                                                                        itemsId.remove(position);
-                                                                                        iAdaptar.notifyDataSetChanged();
                                                                                     }
                                                                                 });
                                                                                 Log.d("delete", "DocumentSnapshot successfully deleted from User_Favorite_Items!");
@@ -460,13 +457,13 @@ public class ItemsActivity extends AppCompatActivity {
                                                                         .addOnFailureListener(new OnFailureListener() {
                                                                             @Override
                                                                             public void onFailure(@NonNull Exception e) {
-                                                                                items.remove(position);
-                                                                                itemsId.remove(position);
-                                                                                iAdaptar.notifyDataSetChanged();
                                                                                 Log.w("delete", "Error deleting document from User_Favorite_Items", e);
                                                                             }
                                                                         });
                                                             }
+                                                            items.remove(position);
+                                                            itemsId.remove(position);
+                                                            iAdaptar.notifyDataSetChanged();
                                                         } else {
                                                         }
                                                     }
